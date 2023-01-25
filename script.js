@@ -1,17 +1,33 @@
-const wrapper = document.querySelector('.wrapper')
+const wrapper = document.querySelector('.wrapper');
+const form = document.getElementById("weatherform");
+const input = document.getElementById("weatherinput");
 
-const foo = async () => {
-    try {
-        const result = await fetch('http://api.openweathermap.org/data/2.5/forecast?lat=51.05&lon=03.73&units=metric&appid=3ee1b28549d7bac27faae1a3fead6ee4');
+form.addEventListener("submit", showweather = async (e) => {
+    e.preventdefault;
+    // try {
+        let location = input.value;
+        const result = await fetch('http://api.openweathermap.org/data/2.5/forecast?q='+location+'&units=metric&appid=3ee1b28549d7bac27faae1a3fead6ee4');
         const data = await result.json()
+        
         console.log(data);
 
-        createcard(data);
+
+        switch (data.cod) {
+            default: createcard(data);
+            console.log(data.cod+ " default");
+            break;
+            case "400": console.log("nothing here")
+            break;
+            case "404": console.log("not a place")
+            break;
+        }
+
         
-    } catch (err) {
-        console.error(err)
-    }
-}
+    // } 
+    // // catch (err) {
+    // //     console.error(err)
+    // // }
+})
 
 const createcard = (data) => {
     const weathercard=document.createElement("div");
@@ -42,5 +58,3 @@ const createcard = (data) => {
     weathercard.appendChild(max_temp);
     max_temp.innerText = data.list[0].main.temp_max + " °C"
 }
-
-foo();
