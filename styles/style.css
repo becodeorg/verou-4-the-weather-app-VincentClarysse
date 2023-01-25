@@ -13,9 +13,16 @@ body {
     text-align: center;
 }
 
+.weatherrow {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .wrapper {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .header {
@@ -26,7 +33,7 @@ body {
 
 #weatherinput {
     margin: 2em 3em;
-    background-color: ghostwhite;
+    background-color: rgb(246, 246, 246);
     border-radius: 10px;
     width: 200px;
     height: 20pt;
@@ -37,5 +44,9 @@ body {
 };
 
 input:focus {
-    background-color: royalblue;
+    outline: none;
+}
+#weatherinput:focus {
+    outline: none;
+    background-color: rgb(255, 255, 255);
 }

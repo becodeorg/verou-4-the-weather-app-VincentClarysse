@@ -30,13 +30,20 @@ form.addEventListener("submit", showweather = async (e) => {
 })
 
 const createcard = (data) => {
+
+    const weather_row=document.createElement("div");
+    weather_row.className="weatherrow";
+    wrapper.appendChild(weather_row);
+
+    for(i=0;i<40;i=i+8) {
+    
     const weathercard=document.createElement("div");
     weathercard.className="weathercard";
-    wrapper.appendChild(weathercard);
+    weather_row.appendChild(weathercard);
 
     const icon = document.createElement("img");
     weathercard.appendChild(icon);
-    icon.src="http://openweathermap.org/img/wn/"+ data.list[0].weather[0].icon +"@2x.png"
+    icon.src="http://openweathermap.org/img/wn/"+ data.list[i].weather[0].icon +"@2x.png"
 
     const city_name = document.createElement("h2");
     weathercard.appendChild(city_name);
@@ -44,17 +51,18 @@ const createcard = (data) => {
 
     const weatherdescription = document.createElement("p");
     weathercard.appendChild(weatherdescription);
-    weatherdescription.innerText = data.list[0].weather[0].description;
+    weatherdescription.innerText = data.list[i].weather[0].description;
 
     const current_temp = document.createElement("p");
     weathercard.appendChild(current_temp);
-    current_temp.innerText = data.list[0].main.temp + " °C"
+    current_temp.innerText = data.list[i].main.temp + " °C"
     
-    const min_temp = document.createElement("p");
-    weathercard.appendChild(min_temp);
-    min_temp.innerText = data.list[0].main.temp_min + " °C"
+    // const min_temp = document.createElement("p");
+    // weathercard.appendChild(min_temp);
+    // min_temp.innerText = data.list[i].main.temp_min + " °C"
 
-    const max_temp = document.createElement("p");
-    weathercard.appendChild(max_temp);
-    max_temp.innerText = data.list[0].main.temp_max + " °C"
+    // const max_temp = document.createElement("p");
+    // weathercard.appendChild(max_temp);
+    // max_temp.innerText = data.list[i].main.temp_max + " °C"
+    }
 }
