@@ -56,14 +56,22 @@ const createcard = (data) => {
     city_array.splice(0,0,data.city.name);
     console.log(city_array)
 
+    const wrapper_row=document.createElement("div");
+    wrapper_row.className="wrapperrow";
+    wrapper.appendChild(wrapper_row)
+
     const weather_row=document.createElement("div");
     weather_row.className="weatherrow";
-    wrapper.appendChild(weather_row);
+    wrapper_row.appendChild(weather_row);
+
+    const weather_back=document.createElement("div");
+    weather_back.className="weatherback";
+    wrapper_row.appendChild(weather_back);
 
     const weather_in=document.createElement("p");
     weather_in.className="weather_in"
-    weather_in.innerHTML="weather in "+data.city.name;
-    weather_row.appendChild(weather_in);
+    weather_in.innerHTML="Weather in<br>"+data.city.name;
+    weather_back.appendChild(weather_in);
 
     for(i=0, x=0;i<40;i=i+8,x++) {
     
