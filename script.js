@@ -2,9 +2,35 @@ const wrapper = document.querySelector('.wrapper');
 const form = document.getElementById("weatherform");
 const input = document.getElementById("weatherinput");
 
+const city_array = [];
+
+const getdayofweek = () => {
+const d = new Date();
+let today = d.getDay();
+
+switch (today) {
+    case 0: "Sunday"
+    break;
+    case 1: "Monday"
+    break;
+    case 2: "Tuesday"
+    break;
+    case 3: "Wednesday"
+    break;
+    case 4: "Thursday"
+    break;
+    case 5: "Friday"
+    break;
+    case 6: "saturday"
+}
+return today
+}
+
+
+
 form.addEventListener("submit", showweather = async (e) => {
     e.preventdefault;
-    // try {
+
         let location = input.value;
         const result = await fetch('http://api.openweathermap.org/data/2.5/forecast?q='+location+'&units=metric&appid=3ee1b28549d7bac27faae1a3fead6ee4');
         const data = await result.json()
@@ -12,27 +38,18 @@ form.addEventListener("submit", showweather = async (e) => {
         console.log(data);
 
         switch (data.cod) {
-            default:    switch(city_array.indexOf(data.city.name)) {
+            default:    switch(city_array.indexOf(data.city.name)) { //prevent same place showing multiple times
                         case -1: createcard(data);
                         break;
                         default: console.log("already there")
             }
             break;
-            case "400": console.log("nothing here")
+            case "400": console.log("nothing here") 
             break;
             case "404": console.log("not a place")
             break;
         }
-
-
-        
-    // } 
-    // // catch (err) {
-    // //     console.error(err)
-    // // }
 })
-
-const city_array = [];
 
 const createcard = (data) => {
     
@@ -43,14 +60,13 @@ const createcard = (data) => {
     weather_row.className="weatherrow";
     wrapper.appendChild(weather_row);
 
-
     const weather_in=document.createElement("p");
     weather_in.className="weather_in"
     weather_in.innerHTML="weather in "+data.city.name;
     weather_row.appendChild(weather_in);
 
-    for(i=0;i<40;i=i+8) {
-   
+    for(i=0, x=0;i<40;i=i+8,x++) {
+    
     const weathercard=document.createElement("div");
     weathercard.className="weathercard";
     weather_row.appendChild(weathercard);
@@ -70,13 +86,11 @@ const createcard = (data) => {
     const current_temp = document.createElement("p");
     weathercard.appendChild(current_temp);
     current_temp.innerText = data.list[i].main.temp + " °C"
-    
-    // const min_temp = document.createElement("p");
-    // weathercard.appendChild(min_temp);
-    // min_temp.innerText = data.list[i].main.temp_min + " °C"
 
-    // const max_temp = document.createElement("p");
-    // weathercard.appendChild(max_temp);
-    // max_temp.innerText = data.list[i].main.temp_max + " °C"
+    const currentday = document.createElement("p");
+    currentday.className='currentday';
+    const day = data.list[i].dt_txt; 
+    currentday.innerHTML = new Date(day).toLocaleDateString("en-US",{weekday: "long"});
+    weathercard.appendChild(currentday);
     }
 }
