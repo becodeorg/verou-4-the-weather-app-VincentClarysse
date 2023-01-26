@@ -11,16 +11,19 @@ form.addEventListener("submit", showweather = async (e) => {
         
         console.log(data);
 
-
         switch (data.cod) {
-            default: createcard(data);
-            console.log(data.cod+ " default");
+            default:    switch(city_array.indexOf(data.city.name)) {
+                        case -1: createcard(data);
+                        break;
+                        default: console.log("already there")
+            }
             break;
             case "400": console.log("nothing here")
             break;
             case "404": console.log("not a place")
             break;
         }
+
 
         
     // } 
@@ -29,14 +32,25 @@ form.addEventListener("submit", showweather = async (e) => {
     // // }
 })
 
+const city_array = [];
+
 const createcard = (data) => {
+    
+    city_array.splice(0,0,data.city.name);
+    console.log(city_array)
 
     const weather_row=document.createElement("div");
     weather_row.className="weatherrow";
     wrapper.appendChild(weather_row);
 
+
+    const weather_in=document.createElement("p");
+    weather_in.className="weather_in"
+    weather_in.innerHTML="weather in "+data.city.name;
+    weather_row.appendChild(weather_in);
+
     for(i=0;i<40;i=i+8) {
-    
+   
     const weathercard=document.createElement("div");
     weathercard.className="weathercard";
     weather_row.appendChild(weathercard);
