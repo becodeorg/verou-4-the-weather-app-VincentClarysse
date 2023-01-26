@@ -76,7 +76,7 @@ const createcard = (data) => {
     for(i=0, x=0;i<40;i=i+8,x++) {
     
     const weathercard=document.createElement("div");
-    weathercard.className="weathercard";
+    weathercard.className="weathercard";  
     weather_row.appendChild(weathercard);
 
     const icon = document.createElement("img");
