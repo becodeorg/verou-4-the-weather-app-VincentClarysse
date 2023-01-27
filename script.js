@@ -102,3 +102,14 @@ const createcard = (data) => {
     weathercard.appendChild(currentday);
     }
 }
+
+const close_button = document.querySelector("#close");
+
+close_button.addEventListener("click", () => {
+    for(i=0; wrapper.children.length > 0; i++) {
+        wrapper.removeChild(wrapper.lastChild);
+    }
+    for(i=0; i<city_array.length;i++){
+        city_array[i]="";
+    }
+})
