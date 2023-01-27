@@ -34,6 +34,10 @@ form.addEventListener("submit", showweather = async (e) => {
         let location = input.value;
         const result = await fetch('http://api.openweathermap.org/data/2.5/forecast?q='+location+'&units=metric&appid=3ee1b28549d7bac27faae1a3fead6ee4');
         const data = await result.json()
+
+        const unsplashresult = await fetch("https://api.unsplash.com/photos/?client_id=YOUR_ACCESS_KEY");
+        const unsplashdata = await unsplashresult.json();
+        console.log(unsplashdata)
         
         console.log(data);
 
@@ -59,6 +63,11 @@ const createcard = (data) => {
     const wrapper_row=document.createElement("div");
     wrapper_row.className="wrapperrow";
     wrapper.insertBefore(wrapper_row, wrapper.firstChild);
+
+    const bg_image=document.createElement("img");
+    bg_image.className="bg_image";
+    bg_image.src="https://images.unsplash.com/photo-1570304816841-906a17d7b067?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmV3JTIweW9yayUyMHNreWxpbmV8ZW58MHx8MHx8&w=1000&q=80"
+    wrapper_row.appendChild(bg_image);
 
     const weather_row=document.createElement("div");
     weather_row.className="weatherrow";
