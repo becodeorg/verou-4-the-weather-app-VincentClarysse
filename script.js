@@ -54,11 +54,11 @@ form.addEventListener("submit", showweather = async (e) => {
 const createcard = (data) => {
     
     city_array.splice(0,0,data.city.name);
-    console.log(city_array)
+    console.log(city_array);
 
     const wrapper_row=document.createElement("div");
     wrapper_row.className="wrapperrow";
-    wrapper.appendChild(wrapper_row)
+    wrapper.insertBefore(wrapper_row, wrapper.firstChild);
 
     const weather_row=document.createElement("div");
     weather_row.className="weatherrow";
