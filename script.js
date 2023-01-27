@@ -90,6 +90,7 @@ const createcard = (data) => {
     const weatherdescription = document.createElement("p");
     weathercard.appendChild(weatherdescription);
     weatherdescription.innerText = data.list[i].weather[0].description;
+    weatherdescription.style.fontWeight="700";
 
     const current_temp = document.createElement("p");
     weathercard.appendChild(current_temp);

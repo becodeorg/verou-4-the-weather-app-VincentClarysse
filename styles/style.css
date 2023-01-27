@@ -13,7 +13,7 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     margin: 1em;
-    background-color:rgba(255, 255, 255, 0.85);
+    background-color:rgba(255, 255, 255, 0.8);
     width: fit-content;
     min-height: 360px;
     padding: 1em;
@@ -25,11 +25,6 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
     color: #051239;
     backdrop-filter: blur(4px);
-}
-
-
-.weathercard img {
-    margin-bottom: 1em;
 }
 
 .weatherrow {
@@ -133,23 +128,24 @@ input:focus {
 
 .weather_in {
     font-family: "roboto";
-    font-size: 60pt;
+    font-size: 80pt;
     /* color: rgb(255, 255, 255); */
     color:#EC6E4C;
-    text-indent: 2pt;
-    line-height: 44pt;
+    text-indent: 4pt;
+    line-height: 60pt;
     width: auto;
     margin-bottom: 20pt;
     z-index: -10;
     align-self: baseline;
     position: absolute;
     bottom: 0;
-    white-space: nowrap;
+    min-width: 300px;
+    /* white-space: nowrap; */
 }
 
 .weather_in::first-line{
-    font-size: 25pt;
-    line-height: 26pt;
+    font-size: 33pt;
+    line-height: 34pt;
 }
 
 .wrapperrow {
@@ -184,7 +180,8 @@ input:focus {
     }
 
     .weathercard {
-        max-width: 38%;
+        max-width: 40%;
         resize: horizontal;
+        margin: 1em 5%;
     }
 }
