@@ -6,56 +6,94 @@ body {
     overflow-x:hidden;
 }
 
+.weathercard img {
+    width: 130px;
+}
+
 .weathercard {
     flex-shrink: 0;
     order: 20;
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
     margin: 1em;
-    background-color:rgba(255, 255, 255, 0.75);
+    background-color:rgba(255, 255, 255, 0.8);
     width: fit-content;
     min-height: 360px;
     padding: 1em;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: 3px;
     text-align: center;
     min-width: 140px;
+    max-width: 180px;
     width: fit-content;
     z-index: 10;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    color: #051239;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    color: #222222;
     backdrop-filter: blur(4px);
+    animation: fadeIn 2s;
+    /* visibility: hidden; */
 }
+
+.weathercard:hover {
+    color: #0c0c0c;
+    transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-o-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
 
 .wrapperrow {
+    margin: 1em 0;
     position: relative;
-    backdrop-filter: blur(4px);
     width: 100%;
     position: relative;
-    display: inline-block;
-    overflow-y: hidden;
+    overflow:hidden;
+
+    background-position-y: center;
+    background-position-x: center;
+    background-size: 1080px;
+    background-blend-mode: saturation;
+    background-repeat: no-repeat;
 }
 
-.bg_image {
-    filter: blur(0px);
-    position: absolute;
-    top: 0;
-    left: 0;
+/* .bg_image {
     object-fit: cover;
     width: 100%;
-    min-height: 100%;
-    overflow-y: hidden;
+    height: 100%;
+    overflow: hidden;
+
     filter:grayscale(1);
 
-    /* display: none; */
-}
+    display: none;
+} */
 
 .weatherrow {
     position: relative;
-    order: 10;
-    flex-basis: 100%;
     width: 100%;
     display: flex;
     flex-shrink: 0;
@@ -64,7 +102,9 @@ body {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 
-    background-image: linear-gradient(to bottom,gainsboro 10%, rgba(255, 255, 0, 0) 30%,rgba(255, 255, 0, 0) 70%,gainsboro 90%),linear-gradient(to right, gainsboro 20%, rgba(220, 220, 220, 0.6) 50%, rgba(220, 220, 220, 0.6) 70%, gainsboro 90%);
+    /* background-image: linear-gradient(to right, gainsboro 17%, rgba(220, 220, 220, 0.3) 18%, rgba(220, 220, 220, 0.3) 82%, gainsboro 83%); */
+    background-image: linear-gradient(to right, rgba(220, 220, 220, 0.3), rgba(220, 220, 220, 0.3) 100%);
+    /* background-image: linear-gradient(to bottom,gainsboro 0%, rgba(255, 255, 0, 0) 10%,rgba(255, 255, 0, 0) 90%,gainsboro 100%),linear-gradient(to right, gainsboro 17%, rgba(220, 220, 220, 0.3) 25%, rgba(220, 220, 220, 0.3) 75%, gainsboro 83%); */
 }
 
 .weatherrow h2 {
@@ -128,7 +168,7 @@ body {
 }
 
 #weatherinput {
-    margin: 2em auto;
+    margin: 2em 0;
     align-self: center;
 
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
@@ -152,13 +192,14 @@ input:focus {
 }
 
 .weather_in {
+    flex-basis: 100%;
     font-family: "roboto";
-    font-size: 80pt;
+    font-size: 60pt;
     /* color: rgb(255, 255, 255); */
     color:#EC6E4C;
     text-indent: 4pt;
-    line-height: 60pt;
-    margin-bottom: 30pt;
+    line-height: 46pt;
+    margin-bottom: 22pt;
     z-index: 0;
     align-self: baseline;
     position: absolute;
@@ -167,11 +208,12 @@ input:focus {
     width: 100%;
     min-width: 320px;
     overflow: visible;
+
 }
 
 .weather_in::first-line{
-    font-size: 33pt;
-    line-height: 34pt;
+    font-size: 24pt;
+    line-height: 22pt;
 }
 
 .weatherback {
@@ -186,22 +228,21 @@ input:focus {
 
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1080px) {
     .weatherrow {
         justify-content: flex-start;
+    }
+
+    .weather_in {
+        display: none;
     }
   }
 
 @media only screen and (max-width: 480px) {
 
     .weathercard {
-        resize: horizontal;
-        margin: 1em 4%;
-        width: 41%;
-        min-width: fit-content
-    }
-
-    .weather_in{
-        width: 100%;
+        margin: 1em 6%;
+        width: 38%;
+        min-width: fit-content;
     }
 }

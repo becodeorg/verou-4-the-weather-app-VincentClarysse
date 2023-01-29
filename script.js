@@ -34,16 +34,25 @@ form.addEventListener("submit", showweather = async (e) => {
         let location = input.value;
         const result = await fetch('http://api.openweathermap.org/data/2.5/forecast?q='+location+'&units=metric&appid=3ee1b28549d7bac27faae1a3fead6ee4');
         const data = await result.json()
+        console.log(data);
 
-        const unsplashresult = await fetch("https://api.unsplash.com/photos/?client_id=YOUR_ACCESS_KEY");
+        const unsplashresult = await fetch("https://api.unsplash.com/search/photos/?query="+data.city.name+"&orientation=landscape&client_id=cATbZHJ6_nm7HLBeUTM8DCHLc9XVaQFCntGhnII42fY");
         const unsplashdata = await unsplashresult.json();
         console.log(unsplashdata)
-        
-        console.log(data);
+
+        const ratio_array = [];    
+        for (i=0; i<unsplashdata.results.length; i++) {
+            let aspectratio = unsplashdata.results[i].width / unsplashdata.results[i].height;
+            if (aspectratio>2.7) {aspectratio = 0}
+            ratio_array.push(aspectratio)
+        }
+        console.log(ratio_array)
+        const bestratio = ratio_array.indexOf(Math.max(...ratio_array));
+        console.log(bestratio)
 
         switch (data.cod) {
             default:    switch(city_array.indexOf(data.city.name)) { //prevent same place showing multiple times
-                        case -1: createcard(data);
+                        case -1: createcard(data, unsplashdata, bestratio);
                         break;
                         default: console.log("already there")
             }
@@ -55,19 +64,14 @@ form.addEventListener("submit", showweather = async (e) => {
         }
 })
 
-const createcard = (data) => {
+const createcard = (data, unsplashdata, bestratio) => {
     
     city_array.splice(0,0,data.city.name);
-    console.log(city_array);
 
     const wrapper_row=document.createElement("div");
     wrapper_row.className="wrapperrow";
     wrapper.insertBefore(wrapper_row, wrapper.firstChild);
-
-    const bg_image=document.createElement("img");
-    bg_image.className="bg_image";
-    bg_image.src="https://images.unsplash.com/photo-1570304816841-906a17d7b067?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bmV3JTIweW9yayUyMHNreWxpbmV8ZW58MHx8MHx8&w=1000&q=80"
-    wrapper_row.appendChild(bg_image);
+    wrapper_row.style.backgroundImage="linear-gradient(gainsboro, gainsboro),url("+unsplashdata.results[bestratio].urls.regular+")"
 
     const weather_row=document.createElement("div");
     weather_row.className="weatherrow";
@@ -76,6 +80,11 @@ const createcard = (data) => {
     const weather_back=document.createElement("div");
     weather_back.className="weatherback";
     wrapper_row.appendChild(weather_back);
+
+    // const bg_image=document.createElement("img");
+    // bg_image.className="bg_image";
+    // bg_image.src=unsplashdata.results[bestratio].urls.full;
+    // weather_row.appendChild(bg_image);
 
     const weather_in=document.createElement("p");
     weather_in.className="weather_in"
