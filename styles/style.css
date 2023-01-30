@@ -19,7 +19,7 @@ body {
     align-items: center;
     justify-content: space-evenly;
     margin: 1em;
-    background-color:rgba(255, 255, 255, 0.8);
+    background-color:rgba(255, 255, 255, 0.6);
     width: fit-content;
     min-height: 360px;
     padding: 1em;
@@ -228,15 +228,17 @@ input:focus {
 
 }
 
-@media only screen and (max-width: 1080px) {
-    .weatherrow {
-        justify-content: flex-start;
-    }
-
+@media only screen and (max-width: 1260px) {
     .weather_in {
         display: none;
     }
   }
+
+@media only screen and (max-width: 1000px) {
+    .weatherrow {
+        justify-content: flex-start;
+    }
+}
 
 @media only screen and (max-width: 480px) {
 

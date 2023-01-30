@@ -16,15 +16,8 @@ form.addEventListener("submit", showweather = async (e) => {
         const unsplashdata = await unsplashresult.json();
         console.log(unsplashdata)
 
-        const ratio_array = [];    
-        for (i=0; i<unsplashdata.results.length; i++) {
-            let aspectratio = unsplashdata.results[i].width / unsplashdata.results[i].height;
-            if (aspectratio>2.7) {aspectratio = 0}
-            ratio_array.push(aspectratio)
-        }
-        console.log(ratio_array);
-        const bestratio = ratio_array.indexOf(Math.max(...ratio_array));
-        console.log(bestratio);
+        const bestratio = ratiofunction(unsplashdata)
+        console.log(bestratio)
 
         switch (data.cod) {
             default:    switch(city_array.indexOf(data.city.name)) { //prevent same place showing multiple times
@@ -103,5 +96,17 @@ close_button.addEventListener("click", () => {
         city_array[i]="";
     }
 })
+
+const ratiofunction = (unsplashdata) => {
+    const ratio_array = [];    
+    for (i=0; i<unsplashdata.results.length; i++) {
+        let aspectratio = unsplashdata.results[i].width / unsplashdata.results[i].height;
+        if (aspectratio>2.7) {aspectratio = 0}
+        ratio_array.push(aspectratio)
+    }
+    console.log(ratio_array);
+    const bestratio = ratio_array.indexOf(Math.max(...ratio_array));
+    return bestratio;
+}
 
 
