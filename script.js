@@ -2,31 +2,7 @@ const wrapper = document.querySelector('.wrapper');
 const form = document.getElementById("weatherform");
 const input = document.getElementById("weatherinput");
 
-const city_array = [];
-
-const getdayofweek = () => {
-const d = new Date();
-let today = d.getDay();
-
-switch (today) {
-    case 0: "Sunday"
-    break;
-    case 1: "Monday"
-    break;
-    case 2: "Tuesday"
-    break;
-    case 3: "Wednesday"
-    break;
-    case 4: "Thursday"
-    break;
-    case 5: "Friday"
-    break;
-    case 6: "saturday"
-}
-return today
-}
-
-
+const city_array = [];    
 
 form.addEventListener("submit", showweather = async (e) => {
     e.preventdefault;
@@ -46,9 +22,9 @@ form.addEventListener("submit", showweather = async (e) => {
             if (aspectratio>2.7) {aspectratio = 0}
             ratio_array.push(aspectratio)
         }
-        console.log(ratio_array)
+        console.log(ratio_array);
         const bestratio = ratio_array.indexOf(Math.max(...ratio_array));
-        console.log(bestratio)
+        console.log(bestratio);
 
         switch (data.cod) {
             default:    switch(city_array.indexOf(data.city.name)) { //prevent same place showing multiple times
@@ -65,7 +41,7 @@ form.addEventListener("submit", showweather = async (e) => {
 })
 
 const createcard = (data, unsplashdata, bestratio) => {
-    
+  
     city_array.splice(0,0,data.city.name);
 
     const wrapper_row=document.createElement("div");
@@ -80,11 +56,6 @@ const createcard = (data, unsplashdata, bestratio) => {
     const weather_back=document.createElement("div");
     weather_back.className="weatherback";
     wrapper_row.appendChild(weather_back);
-
-    // const bg_image=document.createElement("img");
-    // bg_image.className="bg_image";
-    // bg_image.src=unsplashdata.results[bestratio].urls.full;
-    // weather_row.appendChild(bg_image);
 
     const weather_in=document.createElement("p");
     weather_in.className="weather_in"
@@ -132,3 +103,5 @@ close_button.addEventListener("click", () => {
         city_array[i]="";
     }
 })
+
+
