@@ -16,7 +16,7 @@ form.addEventListener("submit", showweather = async (e) => {
         console.log(unsplashdata)
 
         const bestratio = ratiofunction(unsplashdata)
-        
+
         if (data.city.name.includes("Arrondissement de")) {
             data.city.name = (data.city.name.split("Arrondissement de").pop());
         }
@@ -89,9 +89,9 @@ const createcard = (data, unsplashdata, bestratio) => {
     }
     // const weathercards = document.querySelectorAll(".weathercard");
     // weathercards.forEach(card => card.addEventListener("mouseover", (e) => {
-    //     for(i=0; i<weathercards.length;i++) {
-    //         weathercards[i].style.visibility='hidden'
-    //     }
+            
+    //         console.log(e.target)
+    //         e.target.style.opacity="0"            
     // }))
 }
 
