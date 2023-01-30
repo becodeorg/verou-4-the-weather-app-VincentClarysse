@@ -1,13 +1,12 @@
-const wrapper = document.querySelector('.wrapper');
 const form = document.getElementById("weatherform");
-const input = document.getElementById("weatherinput");
-
-const city_array = [];    
+city_array=[];
 
 form.addEventListener("submit", showweather = async (e) => {
     e.preventdefault;
-
+    const input = document.getElementById("weatherinput");
+    
         let location = input.value;
+        input.value="";
         const result = await fetch('http://api.openweathermap.org/data/2.5/forecast?q='+location+'&units=metric&appid=3ee1b28549d7bac27faae1a3fead6ee4');
         const data = await result.json()
         console.log(data);
@@ -17,7 +16,10 @@ form.addEventListener("submit", showweather = async (e) => {
         console.log(unsplashdata)
 
         const bestratio = ratiofunction(unsplashdata)
-        console.log(bestratio)
+        
+        if (data.city.name.includes("Arrondissement de")) {
+            data.city.name = (data.city.name.split("Arrondissement de").pop());
+        }
 
         switch (data.cod) {
             default:    switch(city_array.indexOf(data.city.name)) { //prevent same place showing multiple times
@@ -34,11 +36,12 @@ form.addEventListener("submit", showweather = async (e) => {
 })
 
 const createcard = (data, unsplashdata, bestratio) => {
-  
+    
     city_array.splice(0,0,data.city.name);
 
     const wrapper_row=document.createElement("div");
     wrapper_row.className="wrapperrow";
+    const wrapper = document.querySelector('.wrapper');
     wrapper.insertBefore(wrapper_row, wrapper.firstChild);
     wrapper_row.style.backgroundImage="linear-gradient(gainsboro, gainsboro),url("+unsplashdata.results[bestratio].urls.regular+")"
 
@@ -84,11 +87,18 @@ const createcard = (data, unsplashdata, bestratio) => {
     currentday.innerHTML = new Date(day).toLocaleDateString("en-US",{weekday: "long"});
     weathercard.appendChild(currentday);
     }
+    // const weathercards = document.querySelectorAll(".weathercard");
+    // weathercards.forEach(card => card.addEventListener("mouseover", (e) => {
+    //     for(i=0; i<weathercards.length;i++) {
+    //         weathercards[i].style.visibility='hidden'
+    //     }
+    // }))
 }
 
 const close_button = document.querySelector("#close");
 
 close_button.addEventListener("click", () => {
+    const wrapper = document.querySelector('.wrapper');
     for(i=0; wrapper.children.length > 0; i++) {
         wrapper.removeChild(wrapper.lastChild);
     }
@@ -108,5 +118,11 @@ const ratiofunction = (unsplashdata) => {
     const bestratio = ratio_array.indexOf(Math.max(...ratio_array));
     return bestratio;
 }
+
+
+
+
+
+
 
 
