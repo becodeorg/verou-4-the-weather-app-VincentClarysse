@@ -1,3 +1,4 @@
+console.log(123)
 const form = document.getElementById("weatherform");
 city_array=[];
 
@@ -14,7 +15,7 @@ form.addEventListener("submit", showweather = async (e) => {
         const unsplashresult = await fetch("https://api.unsplash.com/search/photos/?query="+data.city.name+"&orientation=landscape&client_id=cATbZHJ6_nm7HLBeUTM8DCHLc9XVaQFCntGhnII42fY");
         const unsplashdata = await unsplashresult.json();
         console.log(unsplashdata)
-
+    
         const bestratio = ratiofunction(unsplashdata)
 
         if (data.city.name.includes("Arrondissement de")) {
@@ -43,7 +44,9 @@ const createcard = (data, unsplashdata, bestratio) => {
     wrapper_row.className="wrapperrow";
     const wrapper = document.querySelector('.wrapper');
     wrapper.insertBefore(wrapper_row, wrapper.firstChild);
+    if(unsplashdata.results.length > 0) {
     wrapper_row.style.backgroundImage="linear-gradient(gainsboro, gainsboro),url("+unsplashdata.results[bestratio].urls.regular+")"
+    }
 
     const weather_row=document.createElement("div");
     weather_row.className="weatherrow";
