@@ -1,6 +1,5 @@
-console.log(123)
 const form = document.getElementById("weatherform");
-city_array=[];
+city_array= ["test"];
 
 form.addEventListener("submit", showweather = async (e) => {
     e.preventdefault;
@@ -37,7 +36,8 @@ form.addEventListener("submit", showweather = async (e) => {
 })
 
 const createcard = (data, unsplashdata, bestratio) => {
-    
+
+    card_array = []    
     city_array.splice(0,0,data.city.name);
 
     const wrapper_row=document.createElement("div");
@@ -66,6 +66,8 @@ const createcard = (data, unsplashdata, bestratio) => {
     const weathercard=document.createElement("div");
     weathercard.className="weathercard";  
     weather_row.appendChild(weathercard);
+    card_array.push(weathercard);
+    console.log(card_array);
 
     const icon = document.createElement("img");
     weathercard.appendChild(icon);
@@ -90,12 +92,36 @@ const createcard = (data, unsplashdata, bestratio) => {
     currentday.innerHTML = new Date(day).toLocaleDateString("en-US",{weekday: "long"});
     weathercard.appendChild(currentday);
     }
-    // const weathercards = document.querySelectorAll(".weathercard");
-    // weathercards.forEach(card => card.addEventListener("mouseover", (e) => {
-            
-    //         console.log(e.target)
-    //         e.target.style.opacity="0"            
-    // }))
+    
+// card_array.forEach(card => {card.addEventListener("click", (e) => {
+//     console.log("click on "+ e.target.className);
+
+// })
+// })
+// }
+
+
+for (let i = 0; i<card_array.length; i++) {
+    card_array[i].addEventListener("click" , () => {
+        console.log(card_array[i])
+        for (x = 0; x<card_array.length; x++){
+            switch (x) {
+                default: 
+                break
+                case i: console.log(i +" = "+ x);
+                        card_array[i].parentElement.style.overflow="hidden";
+                        card_array[x].style.overflow="hidden";
+                        
+                        card_array[i].style.width="500px"
+                        card_array[i].style.maxWidth='none'
+                        card_array[i].style.marginLeft="500px"
+                        card_array[i].style.marginRight="500px"
+
+
+            }
+        }
+    })
+}
 }
 
 const close_button = document.querySelector("#close");
@@ -121,11 +147,3 @@ const ratiofunction = (unsplashdata) => {
     const bestratio = ratio_array.indexOf(Math.max(...ratio_array));
     return bestratio;
 }
-
-
-
-
-
-
-
-
