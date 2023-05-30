@@ -17,7 +17,6 @@ body {
 .weathercard {
     position: relative;
     flex-shrink: 0;
-    order: 20;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,7 +32,7 @@ body {
     min-width: 140px;
     max-width: 180px;
     width: fit-content;
-    z-index: 10;
+    z-index: 20;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     color: #222222;
     backdrop-filter: blur(4px);
@@ -53,10 +52,12 @@ body {
 
 .wrapperrow {
     margin: 1em 0;
-    position: relative;
     width: 100%;
     position: relative;
     overflow:hidden;
+
+    display: flex;
+    justify-content: center;
 
     background-position-y: center;
     background-position-x: center;
@@ -66,12 +67,14 @@ body {
 }
 
 .weatherrow {
+    justify-self: center;
+    // z-index: 10;
     position: relative;
-    width: 100%;
+    width: 1080px;
     display: flex;
     flex-shrink: 0;
     justify-content: center;
-    overflow: scroll;
+    overflow: hidden;
     overflow-y: hidden;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -115,7 +118,7 @@ body {
     min-width: 100%;
     position: sticky;
     top:0;
-    z-index: 20;
+    z-index: 25;
 }
 
 .header button img {
@@ -142,6 +145,7 @@ body {
 }
 
 #weatherinput {
+    position: relative;
     margin: 2em 0;
     align-self: center;
 
@@ -154,7 +158,6 @@ body {
     color:rgb(100, 100, 100);
     text-indent: 0.5em;
     font-size: 15pt;
-    z-index: 20;
 }
 
 input:focus {
@@ -166,6 +169,7 @@ input:focus {
 }
 
 .weather_in {
+    position: relative;
     flex-basis: 100%;
     font-family: "roboto";
     font-size: 60pt;
@@ -182,7 +186,7 @@ input:focus {
     width: 100%;
     min-width: 320px;
     overflow: visible;
-
+    z-index: 15;
 }
 
 .weather_in::first-line{

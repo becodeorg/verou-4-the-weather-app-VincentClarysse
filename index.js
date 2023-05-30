@@ -10,10 +10,19 @@ form.addEventListener("submit", showweather = async (e) => {
         const result = await fetch('http://api.openweathermap.org/data/2.5/forecast?q='+location+'&units=metric&appid=3ee1b28549d7bac27faae1a3fead6ee4');
         const data = await result.json()
         console.log(data);
+        console.log(data.cod);
+
+        switch (data.cod) {
+            case "400": console.log("nothing here") 
+            break;
+            case "404": alert("It Seems the site can't find this place")
+            break;
+        }
+
 
         const unsplashresult = await fetch("https://api.unsplash.com/search/photos/?query="+data.city.name+"&orientation=landscape&client_id=cATbZHJ6_nm7HLBeUTM8DCHLc9XVaQFCntGhnII42fY");
         const unsplashdata = await unsplashresult.json();
-        console.log(unsplashdata)
+        // console.log(unsplashdata)
     
         const bestratio = ratiofunction(unsplashdata)
 
@@ -21,18 +30,11 @@ form.addEventListener("submit", showweather = async (e) => {
             data.city.name = (data.city.name.split("Arrondissement de").pop());
         }
 
-        switch (data.cod) {
-            default:    switch(city_array.indexOf(data.city.name)) { //prevent same place showing multiple times
+            switch(city_array.indexOf(data.city.name)) { //prevent same place showing multiple times
                         case -1: createcard(data, unsplashdata, bestratio);
                         break;
-                        default: console.log("already there")
+                        default: alert("it's already there")
             }
-            break;
-            case "400": console.log("nothing here") 
-            break;
-            case "404": console.log("not a place")
-            break;
-        }
 })
 
 const createcard = (data, unsplashdata, bestratio) => {
@@ -67,7 +69,7 @@ const createcard = (data, unsplashdata, bestratio) => {
     weathercard.className="weathercard";  
     weather_row.appendChild(weathercard);
     card_array.push(weathercard);
-    console.log(card_array);
+    // console.log(card_array);
 
     const icon = document.createElement("img");
     weathercard.appendChild(icon);
@@ -101,28 +103,27 @@ const createcard = (data, unsplashdata, bestratio) => {
 // }
 
 
-for (let i = 0; i<card_array.length; i++) {
-    card_array[i].addEventListener("click" , () => {
-        console.log(card_array[i])
-        for (x = 0; x<card_array.length; x++){
-            switch (x) {
-                default: 
-                break
-                case i: console.log(i +" = "+ x);
-                        card_array[i].parentElement.style.overflow="hidden";
-                        card_array[x].style.overflow="hidden";
-                        
-                        card_array[i].style.width="500px"
-                        card_array[i].style.maxWidth='none'
-                        card_array[i].style.marginLeft="500px"
-                        card_array[i].style.marginRight="500px"
-
-
-            }
-        }
-    })
-}
-}
+    // for (let i = 0; i<card_array.length; i++) {
+    //     card_array[i].addEventListener("click" , () => {
+    //         console.log(card_array[i])
+    //         for (x = 0; x<card_array.length; x++){
+    //             switch (x) {
+    //                 default:
+    //                         card_array[x].style.opacity="10"
+    //                 break
+    //                 case i: console.log(i +" = "+ x);
+    //                         card_array[i].style.width="50%"
+    //                         card_array[i].style.maxWidth='none'
+    //                         card_array[i].style.position="absolute"
+    //                         card_array[i].left="20%"
+    //                         card_array[i].right="20%"
+    //                         card_array[i].style.marginLeft="500px"
+    //                         card_array[i].style.marginRight="500px"
+    //             }
+    //         }
+    //     })
+    // }
+    }
 
 const close_button = document.querySelector("#close");
 
@@ -143,7 +144,7 @@ const ratiofunction = (unsplashdata) => {
         if (aspectratio>2.7) {aspectratio = 0}
         ratio_array.push(aspectratio)
     }
-    console.log(ratio_array);
+    // console.log(ratio_array);
     const bestratio = ratio_array.indexOf(Math.max(...ratio_array));
     return bestratio;
 }
